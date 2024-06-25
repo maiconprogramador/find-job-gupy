@@ -1,0 +1,12 @@
+{
+    "/api": {
+        "target": "https://portal.api.gupy.io",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+        "^/api": ""
+        }
+    }
+}
+  

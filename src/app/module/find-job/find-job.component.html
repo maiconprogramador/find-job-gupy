@@ -1,0 +1,40 @@
+<div>
+    <h1>Lista de Vagas</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Company ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Career Page Name</th>
+          <th>Type</th>
+          <th>Published Date</th>
+          <th>Is Remote Work</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Country</th>
+          <th>Job Link</th>
+          <th>Search Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of cjobs">
+          <td>{{ job.id }}</td>
+          <td>{{ job.companyId }}</td>
+          <td>{{ job.name }}</td>
+          <td>{{ job.description }}</td>
+          <td>{{ job.careerPageName }}</td>
+          <td>{{ job.type }}</td>
+          <td>{{ job.publishedDate }}</td>
+          <td>{{ job.isRemoteWork }}</td>
+          <td>{{ job.city }}</td>
+          <td>{{ job.state }}</td>
+          <td>{{ job.country }}</td>
+          <td><a [href]="job.jobUrl" target="_blank">Link</a></td>
+          <td>{{ job.searchDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
