@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Job } from '../shared/models/model-job';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 export class ServiceService {
   private startDate = new Date('2024-06-15');
   private requiredKeywords = ['Desenvolvedor front end angular', 'angular'];
-  private labelSearch = ['Desenvolvedor front end angular', 'angular'];
+  private labelSearch = ['Desenvolvedor front end angular', 'angular', 'NGRX', 'Profissional desenvolvedor front-end'];
 
   constructor(private http: HttpClient) { }
 
@@ -20,18 +21,21 @@ export class ServiceService {
   getJobs(): Observable<any[]> {
     const requests = this.labelSearch.map(label => {
       const labelFormatted = encodeURIComponent(label);
-      const url = `https://portal.api.gupy.io/api/job?name=${labelFormatted}&offset=0&limit=10000`;
+      // const url = `https://portal.api.gupy.io/api/job?name=${labelFormatted}&offset=0&limit=10000`;
 
-      // const url = `/api/job?name=${labelFormatted}&offset=0&limit=10000`;
+      const url = `/api/job?name=${labelFormatted}&offset=0&limit=10000`;
 
-      return this.http.get<any>(url).pipe(
-        map(response => {
-          return response.data.filter((job: any) => {
-            const publishedDate = new Date(job.publishedDate);
-            return publishedDate > this.startDate && this.findWordKeys(this.requiredKeywords, job.description);
-          });
-        })
-      );
+      return this.http.get<any>(url)
+      // .pipe(
+        // map(response => {
+          // return response.data
+          // return response.data.filter((resp: Job) => {
+            // const publishedDate = new Date(resp.publishedDate);
+            // return publishedDate > this.startDate && this.findWordKeys(this.requiredKeywords, resp.description);
+          // });
+        // })
+      // );
+      // return this.http.get<any>(url);
     });
 
     return this.concatObservables(requests);

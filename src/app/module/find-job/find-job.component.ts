@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServiceService } from 'src/app/core/service.service';
+import { Job } from 'src/app/shared/models/model-job';
 
 @Component({
   selector: 'app-find-job',
@@ -8,15 +9,21 @@ import { ServiceService } from 'src/app/core/service.service';
 })
 export class FindJobComponent {
 
-  cjobs: any[] = [];
+  cjobs: Job[] = [];
 
   constructor(private jobService: ServiceService) { }
 
   ngOnInit(): void {
     
-    this.jobService.getJobs().subscribe(data => {
-      this.cjobs = data;
-    });
+    this.jobService.getJobs().subscribe(
+      (data) => {
+        this.cjobs = data.reduce((acc, curr) => [...acc, ...curr.data], []);
+        console.log("cjobs", this.cjobs)
+      },
+      (error) => {
+        console.error('Error fetching jobs:', error);
+      }
+    );
   }
 
 }
